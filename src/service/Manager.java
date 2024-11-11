@@ -12,9 +12,9 @@ import java.util.Map;
 public class Manager {
 
 
-    Map<Integer, Task> tasks = new HashMap<>();
-    Map<Integer, Epic> epics = new HashMap<>();
-    Map<Integer, SubTask> subtasks = new HashMap<>();
+    private final Map<Integer, Task> tasks = new HashMap<>();
+    private final Map<Integer, Epic> epics = new HashMap<>();
+    private final Map<Integer, SubTask> subtasks = new HashMap<>();
 
     /**
      * Получить список всех задач
@@ -45,9 +45,16 @@ public class Manager {
         subtasks.clear();
     }
 
+    /**
+     * Удаляет сабтаски из общей мапы.
+     * Чистит мапы в эпиках. Ставит стутс NEW.
+     */
     public void deleteAllSubTasks() {
-        epics.clear();
         subtasks.clear();
+        for(Epic epic: epics.values()){
+            epic.deleteAllSubTask();
+        }
+
     }
 
     /**
@@ -124,9 +131,7 @@ public class Manager {
             Epic epic = epics.get(subTask.getEpicId());
             if (epic != null) {
                 epic.deleteSubTask(id);
-                if(epic.getAllSubTask().isEmpty()){
-                    epics.remove(epic.getId());
-                }
+                epic.calculateStatus();
             }
             subtasks.remove(id);
         }
