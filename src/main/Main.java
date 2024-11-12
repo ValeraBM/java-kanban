@@ -1,4 +1,4 @@
-import service.Manager;
+import service.InMemoryTaskManager;
 import service.Status;
 import model.Epic;
 import model.SubTask;
@@ -7,7 +7,7 @@ import model.Task;
 public class Main {
 
     public static void main(String[] args) {
-        Manager manager = new Manager();
+        InMemoryTaskManager manager = new InMemoryTaskManager();
         System.out.println("Поехали!");
         //task
         Task task1 = new Task("Task1","test task1");
