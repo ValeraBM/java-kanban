@@ -26,6 +26,12 @@ public class Epic extends Task {
         calculateStatus();
     }
 
+    public void deleteAllSubTask(){
+        subTaskMap.clear();
+        setStatus(Status.NEW);
+    }
+
+
     public List<SubTask> getAllSubTask() {
         return new ArrayList<>(subTaskMap.values());
     }
