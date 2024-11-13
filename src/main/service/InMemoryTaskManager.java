@@ -3,6 +3,7 @@ package service;
 import model.Epic;
 import model.SubTask;
 import model.Task;
+import model.TaskType;
 import service.history.HistoryManager;
 import util.Managers;
 
@@ -35,7 +36,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public List<SubTask> getAllSubTusks() {
+    public List<SubTask> getAllSubTasks() {
         return new ArrayList<>(subtasks.values());
     }
 
@@ -71,7 +72,7 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public Task getTaskById(int id) {
-        Task task =tasks.get(id);
+        Task task = tasks.get(id);
         addToHistory(task);
         return task;
     }
@@ -95,20 +96,24 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public void addTask(Task task) {
-        tasks.put(task.getId(), task);
+        if (task != null && task.getType() == TaskType.TASK)
+            tasks.put(task.getId(), task);
     }
 
     @Override
     public void addEpic(Epic epic) {
-        epics.put(epic.getId(), epic);
+        if (epic != null && epic.getType() == TaskType.EPIC)
+            epics.put(epic.getId(), epic);
     }
 
     @Override
     public void addSubTask(SubTask subTask) {
-        Epic epic = epics.get(subTask.getEpicId());
-        if (epic != null) {
-            subtasks.put(subTask.getId(), subTask);
-            epic.addSubTask(subTask);
+        if (subTask != null && subTask.getType() == TaskType.SUBTASK) {
+            Epic epic = epics.get(subTask.getEpicId());
+            if (epic != null) {
+                subtasks.put(subTask.getId(), subTask);
+                epic.addSubTask(subTask);
+            }
         }
     }
 
@@ -176,6 +181,7 @@ public class InMemoryTaskManager implements TaskManager {
      * Добавление в историю
      */
     private void addToHistory(Task task) {
-        historyManager.add(task);
+        if (task != null)
+            historyManager.add(task);
     }
 }

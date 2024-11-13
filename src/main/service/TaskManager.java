@@ -14,7 +14,7 @@ public interface TaskManager {
 
     List<Epic> getAllEpics();
 
-    List<SubTask> getAllSubTusks();
+    List<SubTask> getAllSubTasks();
 
     /**
      * Удаление задач.
