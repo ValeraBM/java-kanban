@@ -315,7 +315,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void InsertIntoTaskMapWrongType() {
+    void insertIntoTaskMapWrongType() {
         TaskManager manager = Managers.getDefault();
         Task task = new Task("Test addNewTask", "Test addNewTask description");
         manager.addTask(task);
