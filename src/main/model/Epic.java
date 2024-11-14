@@ -16,6 +16,11 @@ public class Epic extends Task {
         super(name, description);
     }
 
+    @Override
+    public TaskType getType() {
+        return TaskType.EPIC;
+    }
+
     public void addSubTask(SubTask subTask) {
         subTaskMap.put(subTask.getId(), subTask);
         calculateStatus();
@@ -36,7 +41,7 @@ public class Epic extends Task {
         return new ArrayList<>(subTaskMap.values());
     }
 
-    public void calculateStatus() {
+    private void calculateStatus() {
         Status result;
         if (subTaskMap.isEmpty()) {
             setStatus(Status.NEW);

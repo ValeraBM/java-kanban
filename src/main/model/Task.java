@@ -11,6 +11,11 @@ public class Task {
     private final int id;
     private Status status;
 
+
+    public TaskType getType() {
+        return TaskType.TASK;
+    }
+
     private int getNewId(){
         return counter++;
     }
