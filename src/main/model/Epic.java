@@ -41,7 +41,7 @@ public class Epic extends Task {
         return new ArrayList<>(subTaskMap.values());
     }
 
-    public void calculateStatus() {
+    private void calculateStatus() {
         Status result;
         if (subTaskMap.isEmpty()) {
             setStatus(Status.NEW);
